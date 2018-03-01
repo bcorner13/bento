@@ -72,6 +72,17 @@ If the build is successful, ready to import box files will be in the `builds` di
 ### Proprietary Templates
 
 Templates for operating systems only available via license or subscription are also available in the repository, these include but are not limited to: Mac OS X, Red Hat Enterprise Linux, and SUSE Linux Enterprise. As the ISOs are not publicly available the URL values will need to be overridden as appropriate. We rely on the efforts of those with access to licensed versions of the operating systems to keep these up-to-date.
+#### Redhat
+The templates have been modified from the public json files to use  http://repo.fanatics.corp/artifactory/iso-images/redhat for the iso images.
+```
+$ packer build -var 'iso_checksum=431a58c8c0351803a608ffa56948c5a7861876f78ccbe784724dd8c987ff7000' \
+'mirror=http://repo.fanatics.corp/artifactory/iso-images/redhat'\
+'mirror_directory=6.9' rhel/rhel-6.9-x86_64.json
+```
+or
+```
+$ packer build rhel/rhel-6.9-x86_64.json
+```
 
 #### macOS / OSX
 
@@ -122,4 +133,3 @@ limitations under the License.
 ```
 
 [travis]: https://travis-ci.org/chef/bento
-
