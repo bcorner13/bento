@@ -154,6 +154,7 @@
   ],
   "variables": {
     "arch": "32",
+    "headless": false,
     "box_basename": "rhel-6.9-i386",
     "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "1",
@@ -167,8 +168,8 @@
     "iso_name": "rhel-server-6.9-i386-dvd.iso",
     "ks_path": "6/ks.cfg",
     "memory": "1024",
-    "mirror": "http://YOU-MUST-PROVIDE-YOUR-OWN-ISO.sorry",
-    "mirror_directory": "rhel",
+    "mirror": "http://repo.fanatics.corp/artifactory/iso-images/redhat",
+    "mirror_directory": "6.9",
     "name": "rhel-6.9-i386",
     "no_proxy": "{{env `no_proxy`}}",
     "template": "rhel-6.9-i386",
