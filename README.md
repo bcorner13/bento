@@ -79,9 +79,9 @@ $ packer build -var 'iso_checksum=431a58c8c0351803a608ffa56948c5a7861876f78ccbe7
 'mirror=http://repo.fanatics.corp/artifactory/iso-images/redhat'\
 'mirror_directory=6.9' rhel/rhel-6.9-x86_64.json
 ```
-or
+or with the modified json file we can use
 ```
-$ packer build rhel/rhel-6.9-x86_64.json
+$ bento build --version "0.1.0" rhel/rhel-6.9-i386.json
 ```
 
 #### macOS / OSX
