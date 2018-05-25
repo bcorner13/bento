@@ -1,17 +1,20 @@
+requre 'rubyjems'
 require "yaml"
 require "fileutils"
 
+task :default, [:version] => [:do_all]
+
 desc "clean, build, test, upload"
-task :do_all do
-  check_env
+task :do_all, :version do |t,args|
+  _version=args[:version]
+  puts _version ? "version is #{_version}" : "no version passed"
+
   public_templates.each do |template|
     if config['public'].include?(box_name(template))
-      sh build_cmd(template)
+      sh build_cmd(template,_version)
       sh "bento test"
-      unless ENV["BENTO_AUTO_RELEASE"].nil?
-        sh "bento upload"
-        sh "bento release #{template} #{ENV["BENTO_VERSION"]}"
-      end
+      short_providers=File.basename(providers,"-iso")
+      sh "./art_upload art_key #{box_name(template)}-#{_version}.#{short_providers}.box"
     end
   end
 end
@@ -21,20 +24,18 @@ task :clean do
   FileUtils.rm_rf(['.kitchen.yml', Dir.glob('builds/*')])
 end
 
-def build_cmd(template)
+def build_cmd(template,version)
   cmd = %W{bento build #{template}}
   cmd.insert(2, "--only #{providers}")
   cmd.insert(2, "--mirror #{ENV['PACKER_MIRROR']}") if ENV["PACKER_MIRROR"]
-  cmd.insert(2, "--version #{ENV['BENTO_VERSION']}")
+  cmd.insert(2, "--version #{version}")
   cmd.join(" ")
   a_to_s(cmd)
 end
 
-def check_env
-  if ENV["BENTO_VERSION"].nil?
-    puts "Please set the BENTO_VERSION env variable"
-    exit 1
-  end
+def version
+  _version=args[:version]
+  puts _version
 end
 
 def providers
