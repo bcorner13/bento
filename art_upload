@@ -1,4 +1,4 @@
-# This script parses out the box name, version ,platform, and provider 
+# This script parses out the box name, version ,platform, and provider
 # to build the URL to upload to artifactory
 
 key_file="$1"
@@ -22,5 +22,5 @@ short_name="${file//\-${version}}"
 echo "file:${file}"
 echo "version:${version}"
 echo "short_name:${short_name}"
-echo curl -u ${key} "https://artifactory.svce1.greensky.net/box_images/${short_name};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
-curl -u ${key} "https://artifactory.svce1.greensky.net/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
+echo curl -u ${key} "http://gs-scm-00.greensky.local:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file}
+curl -u ${key} "http://gs-scm-00.greensky.local:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
