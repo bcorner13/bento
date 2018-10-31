@@ -1,4 +1,4 @@
-requre 'rubyjems'
+require 'rubygems'
 require "yaml"
 require "fileutils"
 
