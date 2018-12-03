@@ -1,9 +1,9 @@
 # This script parses out the box name, version ,platform, and provider
 # to build the URL to upload to artifactory
 
-key_file="$1"
+key_file="$1" # Pass in your keyfile with your artifactory credentials
 key=`cat ${key_file}`
-file="$2"
+file="$2" # Name of your box image.  example: centos-7.4-0.1.0.virtualbox.box
 cd builds
 name=`ls $file | awk -F '-' '{ printf $1 "-" $2}';`
 provider=`ls $file | awk -F '.' '{i = 1;{ printf $(NF-i)}}';`
@@ -22,5 +22,5 @@ short_name="${file//\-${version}}"
 echo "file:${file}"
 echo "version:${version}"
 echo "short_name:${short_name}"
-echo curl -u ${key} "http://gs-scm-00.greensky.local:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file}
-curl -u ${key} "http://gs-scm-00.greensky.local:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
+echo curl -u ${key} "http:///gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file}
+curl -u ${key} "http:///gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
