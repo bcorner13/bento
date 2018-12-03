@@ -9,7 +9,7 @@ Bento is a project that encapsulates [Packer](https://www.packer.io/) templates 
 Adding a bento box to Vagrant
 
 ```
-$ vagrant box add bento/ubuntu-16.04
+$ vagrant box add "https://artifactory.svce1.greensky.net/api/vagrant/box_images/{boxName}"
 ```
 
 Using a bento box in a Vagrantfile
@@ -68,6 +68,37 @@ $ packer build -var 'mirror=http://mirror.utexas.edu/fedora/linux' fedora-26-x86
 If the build is successful, ready to import box files will be in the `builds` directory at the root of the repository.
 
 \***NOTE:** box_basename can be overridden like other Packer vars with `-var 'box_basename=ubuntu-16.04'`
+
+Bash script to help in the automation.  To use this script add a file with the artifactory credentials.. I chose to create 
+a file simply called "key_file".  Pass the file name as the first attribute and the box name for the second.
+```
+# This script parses out the box name, version ,platform, and provider
+# to build the URL to upload to artifactory
+
+key_file="$1" # Pass in your keyfile with your artifactory credentials
+key=`cat ${key_file}`
+file="$2" # Name of your box image.  example: centos-7.4-0.1.0.virtualbox.box
+cd builds
+name=`ls $file | awk -F '-' '{ printf $1 "-" $2}';`
+provider=`ls $file | awk -F '.' '{i = 1;{ printf $(NF-i)}}';`
+platform=`ls $file | awk -F '-' '{ printf $3 }';`
+if [ ${platform} == 'i386' ]; then
+  platform="-${platform}"
+else
+  platform=''
+fi
+major=`ls $file | awk -F '.' '{i = 4;{ printf $(NF-i)}}';`
+minor=`ls $file | awk -F '.' '{i = 3;{ printf $(NF-i)}}';`
+build=`ls $file | awk -F '.' '{i = 2;{ printf $(NF-i)}}';`
+major=`echo $major | awk -F '-' '{printf $(NF)}'`
+version="${major}.${minor}.${build}"
+short_name="${file//\-${version}}"
+echo "file:${file}"
+echo "version:${version}"
+echo "short_name:${short_name}"
+echo curl -u ${key} "http:///gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file}
+curl -u ${key} "http:///gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
+```
 
 ### Proprietary Templates
 
