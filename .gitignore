@@ -13,3 +13,4 @@ packer.log
 Gemfile.lock
 bootstrap.sh
 *.bak
+.*.cls
