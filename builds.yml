@@ -11,8 +11,6 @@ public:
 - 'ubuntu-17.04-i386'
 - 'ubuntu-16.04'
 - 'ubuntu-16.04-i386'
-- 'ubuntu-14.04'
-- 'ubuntu-14.04-i386'
 - 'debian-9.3'
 - 'debian-8.10'
 - 'debian-8.10-i386'
