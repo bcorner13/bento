@@ -4,9 +4,7 @@ providers:
 
 public:
 - 'centos-7.5'
-- 'centos-7.4'
-- 'centos-6.9'
-- 'centos-6.9-i386'
+- 'centos-7.6'
 - 'ubuntu-17.10'
 - 'ubuntu-17.10-i386'
 - 'ubuntu-17.04'
@@ -18,8 +16,6 @@ public:
 - 'debian-8.10-i386'
 
 slugs:
-  'centos-7': 'centos-7.4'
-  'centos-6': 'centos-6.9'
+  'centos-7': 'centos-7.5'
   'debian-9': 'debian-9.3'
   'debian-8': 'debian-8.10'
-  'debian-7': 'debian-7.11'

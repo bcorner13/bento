@@ -22,5 +22,6 @@ short_name="${file//\-${version}}"
 echo "file:${file}"
 echo "version:${version}"
 echo "short_name:${short_name}"
-echo curl -u ${key} "http:///gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file}
-curl -u ${key} "http:///gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
+echo curl -u ${key} "http://gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
+curl -u ${key} "http://gs-scm-00.atl.greensky.net:8081/artifactory/box_images/${file};box_name=${name}${platform};box_provider=${provider};box_version=${version}" -T ${file} 
+
